@@ -1,0 +1,241 @@
+<html lang="en">
+        
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Document</title>
+            <style>
+                #suggestion{
+                    display: none;
+                    width: 200px;
+                    border: 1px solid rgba(88, 55, 30, 0.349);
+                    padding: 10px;
+                    margin: 100px auto;
+                }
+                #json-datalist {
+                    display: none;
+                    color: black;
+                }
+                option{
+                    color: black;
+                    text-align: center;
+        
+                }
+        
+                #search-input, #name, #password{
+                    height: 53px;
+                    width: 323px;
+                    margin: 5px;
+                    border: 2px solid seagreen;
+                    border-radius: 4px;
+                    text-align: left;
+                    font-size: 1.3em;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                }
+                input[type=button]{
+                    height: 53px;
+                    width: 64px;
+                    cursor: pointer;
+                    background-color: seagreen;
+                    color: white;
+                    font-size: 1.4em;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    border-radius: 13px;
+                }input[type=submit]{
+                    height: 53px;
+                    width: 64px;
+                    cursor: pointer;
+                    background-color: seagreen;
+                    color: white;
+                    font-size: 1.4em;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    border-radius: 13px;
+                }
+                #response{
+                                font-size: 1.4em;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                }
+                section {
+                    /* display: inline-block; */
+                    width: 400px;
+                    border: 10px solid seagreen;
+                    padding: 10px;
+                    border-radius: 18px;
+                    margin-block-start: 12px;
+                    box-shadow: rgba(34, 3,4,1);
+                    box-shadow: rgb(rgba(85, 2, 2, 0.144), rgb(37, 37, 37), rgb(76, 76, 126));
+                    margin: 200px auto;
+                    float: right;
+                }
+                #left{
+                    float: left;
+                }
+        
+                #logo, #banner{
+                    text-align: center;
+                    background-color: rgba(6, 118, 19, 0.542);
+                    border-radius: 13px;
+                    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                }
+        
+                section > div {
+                    padding: 10px 0;
+                }
+                
+            </style>
+        </head>
+        
+        <body>
+            
+                <div id="log">
+                    <!-- <iframe src="" frameborder="0" id="g">f</iframe> -->
+                    <section id="left">
+                            <form action="/regester" method="POST" id="signup">
+                                <div id="logo">
+                                    <h2>
+                                            SIGNUP HERE
+                                    </h2>
+                                </div>
+                                 
+                                <input type="text" placeholder="name" name="name" style="width: 90%;" required id="name"></br>
+                                <input type="password"style="width: 90%;"  placeholder="password" name="password" required id="password"></br>
+                                <input type="submit" style="width: 100%;" value="SIGNUP">
+                    
+                            </form>
+                           
+                        </section>
+                    
+                </div>
+                <section>
+                <div id="logo">
+                    <h2>DICTIONARY OF ALL TIME</h2>
+                </div>
+                <div id='search'>
+                    <input id="search-input" placeholder="e.g ROYALET" list="json-datalist">
+                    <datalist id="json-datalist">
+                        
+                       </datalist>
+                    <input type="button" id='go' value="Go"/>
+                    
+                   
+                    
+        
+                </div>
+                <div id="suggestion"></div>
+                
+                <div id="response">
+                    <span class="word"></span>: <span class="meaning"></span>
+                </div>
+            </section>
+            
+            <script>
+                    // document.getElementById('signup').addEventListener('click', caller);
+                    // function caller(){
+                    //     var xhr = new XMLHttpRequest();
+                    //     xhr.open('POST', '/regester', true);
+                    //     xhr.onload = function(){
+                    //         if(this.status == 200){
+                    //             console.log(this.responseText);
+                    //             var t = '';
+                    //             document.getElementById('g').src = this.responseText;
+                    //         }
+        
+                    //     }
+                        
+                    //     xhr.send();
+                    // }
+                    let input = document.getElementById('search-input');
+                    let goButton = document.getElementById('go');
+                    let word = document.getElementsByClassName('word');
+                    let meaning = document.getElementsByClassName('meaning');
+        
+        
+                    let dataList = document.getElementById('json-datalist');
+        
+                    //  input.onkeydown = function(){
+                    //     document.getElementById('suggestion').style.display = 'block';
+        
+                    // }
+                    
+                    // input.oninput = function(){
+                    //     var xhr = new XMLHttpResquest();
+                    //     xhr.open('GET', '/suggestion/?word=' + item, true);
+                    //     xhr.onload = function(){
+                    //         if(this.status == 200){
+                    //             var data = JSON.parse(this.responseText);
+                    //             console.log(data);
+                    //             var arr = [];
+                    //             arr.push(data);
+                    //             for(let i in arr){
+                    //                 var options = document.createElement('option');
+                    //                 dataList.appendChild(options).innerHTML = i;    
+                    //             }
+                                
+                    //         }else{
+                    //             input.placeholder = 'oops';
+                    //         }
+                    //     }
+                    //     xhr.send();
+                    // }
+                    
+                input.oninput = function(){
+                    var item = input.value;
+                    var request = new XMLHttpRequest();
+                    request.onreadystatechange = function(res){
+                        if(request.readyState == 4){
+                            if(request.status == 200){
+                                var arr = (request.responseText); 
+                                arr = JSON.parse(arr);
+                                //loop over the array items
+                            console.log();    
+                            for(let t of arr){           // 
+                                console.log(t);
+                                var option = document.createElement('option');
+                                // console.log(array[i]);
+                                option.value = t;
+                                dataList.appendChild(option);
+                            }
+                                   
+                            //     array.foreach(function(item){
+                            //         //new option
+                            //         var option = document.createElement('option');
+                            //         option.value = 
+                            //         dataList.appendChild(option);
+                            // });                    
+                            //updating the place holder
+                            input.placeholder = "e.g. ROYALET";
+                            }else {
+                                input.placeholder = "Couldn't load the word :( ";
+                            }
+                        }
+                    };
+        
+                    
+                    request.open('GET', '/suggestion?word=' + item, true);
+                    request.send();
+                }
+                    
+        
+        
+                    goButton.onclick = function(){
+        
+                        let httpRequest = new XMLHttpRequest();
+                        var wordText = input.value;
+                        word[0].textContent = wordText;
+                        httpRequest.onreadystatechange = function(){
+                            if(httpRequest.readyState == XMLHttpRequest.DONE){
+                                if(httpRequest.status == 200){
+                                    meaning[0].textContent = httpRequest.responseText;
+                                }else{
+                                    meaning[0].textContent = "";
+                                }
+                            }
+                        }
+                        
+                        httpRequest.open('GET', '/dictionary?word=' + wordText, true);
+                        httpRequest.send();
+                    }
+                </script>
+        </body>
+        </html>
